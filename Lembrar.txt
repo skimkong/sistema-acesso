@@ -1,0 +1,75 @@
+Após subir a API:
+curl -X GET http://localhost:5000/api/protected/dashboard \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+
+  Substitua SEU_TOKEN_AQUI pelo token recebido no login.
+
+   - a rota protegida no back ja foi criada (protectedRoutes.js)
+   - o index tb foi atualizado
+   - Implementar o frontend com autenticação JWT ***
+   - Criar a estrutura  de autenticação
+         Crie um AuthContext que armazene o token e um hook useAuth
+         Armazenar o token no localStorage
+         A rota protehida com verificação de token
+         chamando a API com o token
+
+Checklist da Integração CURL (antes de integrar no frontend)
+curl -X POST http://localhost:5000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Bruno", "email": "bruno@email.com", "password": "123456"}'
+ 
+  - Resposta com message: "Usuário criado com sucesso" ou similar.
+
+Login e recepção do token JWT
+curl -X POST http://localhost:5000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "bruno@email.com", "password": "123456"}'
+
+  -  Esperado: JSON com o token, por exemplo: "token" "jdcjvbHBh..."
+
+
+Acesso a rota protegida (exemplo)
+router.get('/profile', authenticateToken, (req, res) => {
+  res.json({ user: req.user });
+});
+Esta no inicio do texto ^^^
+
+O esperado como resposta:
+{
+  "user": {
+    "id": "...",
+    "name": "Bruno",
+    "email": "bruno@email.com",
+    ...
+  }
+}
+
+- Assim que tudo acima funcionar via curl:
+
+Criar lógica no frontend para armazenar o token.
+
+Mostrar o nome do usuário logado.
+
+Esconder/mostrar rotas dinamicamente no menu.
+
+Implementar visual da tela de transações.
+
+Atualização no frontend
+
+
+
+✅ Check de tudo o que você deseja
+
+Desejo	                        Incluído?	            Observação
+Nome do usuário logado	        ✅	                   No cabeçalho
+Botão de logout	                ✅	                   No topo
+Menu condicional	            ✅	                   Somente "Transações"
+Botão de adicionar transação	✅	                   Funcional com submenu/modal
+Submenu com tipo, valor, descrição, data	✅	       Incluído
+Valor com "R$"	                ✅	                   Com máscara
+Saída com "-R$"	                ✅	                   Estilizado em vermelho
+Tabela/cartões com cores	    ✅	                   Verde e vermelho
+Soma total atualizada	        ✅	                   Campo fixo e dinâmico
+Visual moderno	                ✅	                   Tailwind com responsividade
+
+   
