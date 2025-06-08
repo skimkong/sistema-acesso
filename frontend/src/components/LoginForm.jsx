@@ -34,7 +34,7 @@ export default function LoginForm() {
       }
 
       // Buscar nome do usuário após login
-      const profileResponse = await fetch("/api/user/profile", {
+      const profileResponse = await fetch("http://localhost:5000/api/user/profile", {
         headers: {
           Authorization: `Bearer ${data.token}`,
         },

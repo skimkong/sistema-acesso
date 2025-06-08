@@ -13,7 +13,7 @@ export default function RegisterForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default function RegisterForm() {
         localStorage.setItem("token", data.token);
 
         // Buscar nome do usuário
-        const profileRes = await fetch("/api/user/profile", {
+        const profileRes = await fetch("http://localhost:5000/api/users/profile", {
           headers: {
             Authorization: `Bearer ${data.token}`,
           },
@@ -44,8 +44,8 @@ export default function RegisterForm() {
 
         const profileData = await profileRes.json();
 
-        if (profileRes.ok && profileData.user?.nome) {
-          localStorage.setItem("username", profileData.user.nome);
+        if (profileRes.ok && profileData.user?.name) {
+          localStorage.setItem("username", profileData.user.name);
         }
 
         navigate("/transacoes");

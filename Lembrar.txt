@@ -10,7 +10,7 @@ curl -X GET http://localhost:5000/api/protected/dashboard \
    - Criar a estrutura  de autenticação
          Crie um AuthContext que armazene o token e um hook useAuth
          Armazenar o token no localStorage
-         A rota protehida com verificação de token
+         A rota protegida com verificação de token
          chamando a API com o token
 
 Checklist da Integração CURL (antes de integrar no frontend)

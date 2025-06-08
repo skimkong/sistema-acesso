@@ -5,9 +5,11 @@ const { createUser, findUserByEmail } = require('../models/User');
 
 async function register(req, res) {
   const { name, email, password } = req.body;
+ 
+ 
   try {
-    const hasshedPassword = await bcrypt.hash(password, 10);
-    const user = await createUser(name, email, hashedpassword);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await createUser(name, email, hashedPassword);
     
     res.status(201).json({
       id: user.id,

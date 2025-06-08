@@ -1,12 +1,11 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-const bcrypt = require("bcrypt");
 
 const User = sequelize.define("User", {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -21,23 +20,19 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-},
-
-{
+}, {
   tableName: "users",
-  timestamps: false,
-  freezeTableName: true,
+  timestamps: false, // Mantém sem timestamps para evitar colunas desnecessárias
 });
 
+// 🔥 Métodos auxiliares para facilitar buscas no banco
 User.createUser = async function (name, email, password) {
-  const hashedPassword = await bcrypt.hash(password, 10);
-  return await User.create({ name, email, password: hashedPassword });
+    return await User.create({ name, email, password });
 };
 
 User.findUserByEmail = async function (email) {
   return await User.findOne({ where: { email } });
 };
-
 
 User.findUserById = async function (id) {
   return await User.findByPk(id, { attributes: ["id", "name", "email"] });
